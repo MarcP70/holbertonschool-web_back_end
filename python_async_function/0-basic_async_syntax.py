@@ -7,12 +7,16 @@ import asyncio
 import random
 
 
-async def wait_random(max_delay=10):
+async def wait_random(max_delay: int = 10) -> float:
     """
     Generates a random delay and then waits for that delay.
 
-    :param max_delay: The maximum delay in seconds. Default is 10 seconds.
-    :type max_delay: float
+    Args:
+        max_delay (Union[int, float]): The maximum delay in seconds.
+        Default is 10.
+
+    Returns:
+        float: The random delay that was waited.
     """
     delay = random.uniform(0, max_delay)
     await asyncio.sleep(delay)
