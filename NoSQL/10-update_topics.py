@@ -25,7 +25,7 @@ def update_topics(mongo_collection, name, topics):
     update = {"$set": {"topics": topics}}
 
     # Use the update_one method to update the document
-    mongo_collection.update_one(filter, update)
+    mongo_collection.update_many(filter, update)
 
 
 if __name__ == "__main__":
