@@ -1,4 +1,4 @@
-#!/usr/bin/env pyton3
+#!/usr/bin/env python3
 """
 Task 9: inserts a new document in a collection based on kwargs
 """
