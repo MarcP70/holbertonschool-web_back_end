@@ -15,8 +15,14 @@ def insert_school(mongo_collection, **kwargs):
             values.
 
     Returns:
-        str: The new document's _id.
+        str: The new document's _id, or None if kwargs is empty or if the
+        collection is empty.
     """
+    if mongo_collection.count_documents({}) == 0:
+        return None
+    if not kwargs:
+        return None
+
     new_document = kwargs
     result = mongo_collection.insert_one(new_document)
     return str(result.inserted_id)
