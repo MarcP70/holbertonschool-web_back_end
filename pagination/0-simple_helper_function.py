@@ -3,6 +3,7 @@
 Task 0.
 """
 
+
 def index_range(page, page_size):
     """
     Return a tuple of start and end indexes for a given page and page_size.
