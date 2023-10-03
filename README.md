@@ -7,3 +7,4 @@ This repository contains the following files:
 5. pagination
 6. ES6_basic 12/09/2023
 7. ES6_classes 13/09/2023
+8. ES6_promise 03/10/2023
