@@ -8,3 +8,4 @@ This repository contains the following files:
 6. ES6_basic 12/09/2023
 7. ES6_classes 13/09/2023
 8. ES6_promise 03/10/2023
+9. ES6_data_manipulation 04/10/2023
