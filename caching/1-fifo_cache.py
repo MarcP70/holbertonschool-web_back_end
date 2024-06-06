@@ -27,7 +27,7 @@ class FIFOCache(BaseCaching):
 
         # If the cache is full, discard the first item (FIFO)
         if len(self.cache_data) >= self.MAX_ITEMS:
-            discarded_key = next(iter(self.cache_data))
+            discarded_key = list(self.cache_data.keys())[0]
             del self.cache_data[discarded_key]
             print("DISCARD:", discarded_key)
 
