@@ -7,6 +7,8 @@ This module provides a function to obfuscate specific fields in log messages.
 import logging
 import re
 from typing import List, Tuple
+import os
+import mysql.connector
 
 PII_FIELDS: Tuple[str, ...] = ("name", "email", "phone", "ssn", "password")
 
@@ -77,3 +79,30 @@ def get_logger() -> logging.Logger:
 
     logger.addHandler(stream_handler)
     return logger
+
+
+def get_db():
+    """
+    Connect to the MySQL database using credentials from environment variables.
+
+    Returns:
+        mysql.connector.connection.MySQLConnection: Database connector object.
+    """
+    # Get credentials from environment variables
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
+
+    # Connect to the database
+    try:
+        db = mysql.connector.connect(
+            user=username,
+            password=password,
+            host=host,
+            database=db_name
+        )
+        return db
+    except mysql.connector.Error as err:
+        print(f"Error connecting to MySQL: {err}")
+        raise
