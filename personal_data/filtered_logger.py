@@ -106,3 +106,40 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     except mysql.connector.Error as err:
         print(f"Error connecting to MySQL: {err}")
         raise
+
+
+def main():
+    """
+    Main function to retrieve data from the users table and log it securely.
+    """
+    # Configure logger
+    logger = get_logger()
+
+    # Connect to database
+    db = get_db()
+    cursor = db.cursor()
+
+    try:
+        # Retrieve all rows from users table
+        cursor.execute("SELECT * FROM users")
+        rows = cursor.fetchall()
+
+        # Log each row securely
+        for row in rows:
+            # Construct the log message
+            log_message = "; ".join(
+                [f"{field}={value}" for field, value in zip(cursor.column_names, row)])
+            log_message += ";"  # Add semicolon at the end
+            logger.info(log_message)
+
+    except mysql.connector.Error as err:
+        logger.error(f"Error fetching data from MySQL: {err}")
+
+    finally:
+        # Clean up resources
+        cursor.close()
+        db.close()
+
+
+if __name__ == "__main__":
+    main()
