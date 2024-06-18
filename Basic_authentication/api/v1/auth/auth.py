@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
-""" Module of authentification
-"""
+""" Module of authentification """
 from typing import List
 from flask import request
 
 
 class Auth:
-    """ Authentification class
-    """
+    """ Authentification class """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """
-        Returns True if path is None
-        Returns True if excluded_paths is None or empty
-        Returns False if path is in excluded_paths
-        """
+        """ Checks if authentication is required for the given path """
         if not path:
             return True
 
@@ -29,8 +23,12 @@ class Auth:
         return True
 
     def authorization_header(self, request=None) -> str:
-        """ Returns None """
-        return None
+        """ Returns the Authorization header value from the request """
+        if not request:
+            return None
+        if 'Authorization' not in request.headers:
+            return None
+        return request.headers['Authorization']
 
     def current_user(self, request=None) -> str:
         """ Returns None """
