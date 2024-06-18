@@ -67,16 +67,20 @@ class BasicAuth(Auth):
             return None
 
         # Search for the user in the database
-        user_instance = User.search({"email": user_email})
-        if not user_instance:
+        user_list = []
+        try:
+            user_list = User.search({"email": user_email})
+            if user_list == []:
+                return None
+        except Exception:
             return None
 
         # Assuming `search` returns a list of users,
             # we should take the first user.
-        user_instance = user_instance[0]
+        user = user_list[0]
 
         # Check if the provided password matches the user's stored password
-        if not user_instance.is_valid_password(user_pwd):
-            return None
+        if user.is_valid_password(user_pwd):
+            return user
 
-        return user_instance
+        return None
