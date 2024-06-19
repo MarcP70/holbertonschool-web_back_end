@@ -66,11 +66,8 @@ def before_request():
         return
 
     # Check for valid authorization header or session cookie
-    if not auth.authorization_header(request) and not auth.session_cookie(request):
-        abort(401)
-
-    # Check if Authorization header is present
-    if auth.authorization_header(request) is None:
+    if not auth.authorization_header(request) \
+            and not auth.session_cookie(request):
         abort(401)  # Unauthorized
 
     # Check if current user is authenticated
