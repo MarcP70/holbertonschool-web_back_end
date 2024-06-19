@@ -47,6 +47,20 @@ Requirements
 *   All your functions (inside and outside a class) should have a documentation (`python3 -c 'print(__import__("my_module").my_function.__doc__)'` and `python3 -c 'print(__import__("my_module").MyClass.my_function.__doc__)'`)
 *   A documentation is not a simple word, it’s a real sentence explaining what’s the purpose of the module, class or method (the length of it will be verified)
 
+### Python Scripts
+
+  * Ensure venv package is installed
+  sudo apt-get install python3.11-venv
+
+  * Create virtual environment
+  python3 -m venv venv
+
+  * Activate virtual environment
+  source venv/bin/activate
+
+  * Install dependencies
+  pip install -r requirements.txt
+
 Tasks
 -----
 
