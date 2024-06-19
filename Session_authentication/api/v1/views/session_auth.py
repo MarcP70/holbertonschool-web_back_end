@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Session Auth views """
-from flask import jsonify, request
+from flask import jsonify, request, abort
 from api.v1.views import app_views
 from models.user import User
 from api.v1.app import auth
@@ -34,3 +34,12 @@ def auth_session_login() -> Dict:
     response.set_cookie(session_name, session_id)
 
     return response
+
+
+@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+def auth_session_logout() -> Dict:
+    """ DELETE /auth_session/logout
+    """
+    if not auth.destroy_session(request):
+        abort(404)
+    return jsonify({}), 200
