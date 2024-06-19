@@ -5,10 +5,11 @@ from api.v1.views import app_views
 from models.user import User
 from api.v1.app import auth
 import os
+from typing import Dict
 
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
-def auth_session_login():
+def auth_session_login() -> Dict:
     """ POST /auth_session/login """
     email = request.form.get('email')
     password = request.form.get('password')
