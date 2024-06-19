@@ -42,7 +42,7 @@ def unauthorized(error) -> str:
 
 
 @app.errorhandler(403)
-def unauthorized(error) -> str:
+def forbidden(error) -> str:
     """ Forbidden handler """
     return jsonify({"error": "Forbidden"}), 403
 
@@ -57,11 +57,17 @@ def before_request():
 
     # Paths that don't require authentication
     excluded_paths = ['/api/v1/status/',
-                      '/api/v1/unauthorized/', '/api/v1/forbidden/']
+                      '/api/v1/unauthorized/',
+                      '/api/v1/forbidden/',
+                      '/api/v1/auth_session/login/']
 
     # Check if the path requires authentication
     if not auth.require_auth(request.path, excluded_paths):
         return
+
+    # Check for valid authorization header or session cookie
+    if not auth.authorization_header(request) and not auth.session_cookie(request):
+        abort(401)
 
     # Check if Authorization header is present
     if auth.authorization_header(request) is None:
