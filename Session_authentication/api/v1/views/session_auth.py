@@ -36,7 +36,8 @@ def auth_session_login() -> Dict:
     return response
 
 
-@app_views.route('/auth_session/logout', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/auth_session/logout', methods=['DELETE'],
+                 strict_slashes=False)
 def auth_session_logout() -> Dict:
     """ DELETE /auth_session/logout
     """
