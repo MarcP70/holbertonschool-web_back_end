@@ -2,10 +2,12 @@
 """ Module of authentification """
 from typing import List
 from flask import request
+import os
 
 
 class Auth:
     """ Authentification class """
+
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ Checks if authentication is required for the given path """
         if not path:
@@ -33,3 +35,16 @@ class Auth:
     def current_user(self, request=None) -> str:
         """ Returns None """
         return None
+
+    def session_cookie(self, request=None) -> str:
+        """ Returns the value of the session cookie from the provided
+            request object.
+        """
+        if request is None:
+            return None
+
+        # Retrieve the cookie name from the environment variable
+        session_name = os.getenv('SESSION_NAME', '_my_session_id')
+
+        # Return the value of the session cookie
+        return request.cookies.get(session_name)
