@@ -83,9 +83,11 @@ def logout() -> str:
     except ValueError:
         abort(403)
 
+
 @app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile() -> str:
-    """Profile method to get the user profile"""
+    """Profile method to get the user profile
+    """
     session_id = request.cookies.get('session_id')
 
     if not session_id:
