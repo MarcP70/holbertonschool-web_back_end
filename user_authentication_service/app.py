@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Flask app module
 """
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 
@@ -64,6 +64,24 @@ def login() -> str:
             abort(401)
     except ValueError as e:
         abort(401)
+
+
+@app.route('/sessions', methods=['DELETE'], strict_slashes=False)
+def logout() -> str:
+    """Logout method to destroy a session"""
+    session_id = request.cookies.get('session_id')
+
+    if not session_id:
+        abort(403)
+
+    try:
+        user = AUTH.get_user_from_session_id(session_id)
+        if not user:
+            raise ValueError("User not found")
+        AUTH.destroy_session(user.id)
+        return redirect('/'), 302
+    except ValueError:
+        abort(403)
 
 
 # Run the Flask application if this script is run directly
