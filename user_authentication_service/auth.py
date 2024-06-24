@@ -68,7 +68,8 @@ class Auth:
             return None
 
     def get_user_from_session_id(self, session_id: str) -> User:
-        """Return the user associated with the given session_id, or None"""
+        """Return the user associated with the given session_id, or None
+        """
         if session_id is None:
             return None
         try:
@@ -76,3 +77,11 @@ class Auth:
             return user
         except NoResultFound:
             return None
+
+    def destroy_session(self, user_id: int) -> None:
+        """Destroy the session for the user by setting their session_id to None
+        """
+        try:
+            self._db.update_user(user_id, session_id=None)
+        except NoResultFound:
+            pass
