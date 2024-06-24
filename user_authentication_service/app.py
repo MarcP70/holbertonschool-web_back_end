@@ -10,14 +10,14 @@ app = Flask(__name__)
 AUTH = Auth()
 
 @app.route("/")
-def welcome():
+def welcome() -> str:
     """ Welcome methode
     """
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route("/users", methods=['POST'])
-def register_user():
+def register_user() -> str:
     """ Register methode
     """
     try:
