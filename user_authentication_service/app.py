@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Flask app
+"""Flask app module
 """
 from flask import Flask, jsonify, request
 from auth import Auth
@@ -21,10 +21,13 @@ def welcome() -> str:
 def users() -> str:
     """ Register methode
     """
-    try:
-        email = request.form.get['email']
-        password = request.form.get['password']
+    email = request.form.get['email']
+    password = request.form.get['password']
 
+    if not email or not password:
+        return jsonify({"message": "email and password are required"}), 400
+
+    try:
         user = AUTH.register_user(email, password)
 
         return jsonify({
