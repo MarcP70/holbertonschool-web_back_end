@@ -12,17 +12,17 @@ AUTH = Auth()
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def welcome() -> str:
-    """ Welcome methode
+    """Welcome methode to return a welcome message
     """
     return jsonify({"message": "Bienvenue"})
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users() -> str:
-    """ Register methode
+    """Register methode to register a user if not already exist
     """
-    email = request.form.get['email']
-    password = request.form.get['password']
+    email = request.form['email']
+    password = request.form['password']
 
     if not email or not password:
         return jsonify({"message": "email and password are required"}), 400
