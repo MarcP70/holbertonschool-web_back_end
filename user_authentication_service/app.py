@@ -122,6 +122,25 @@ def get_reset_password_token() -> str:
         abort(403)
 
 
+@app.route('/reset_password', methods=['PUT'], strict_slashes=False)
+def update_password() -> str:
+    """Update password method"""
+    email = request.form['email']
+    reset_token = request.form['reset_token']
+    new_password = request.form['new_password']
+
+    if not email or not reset_token or not new_password:
+        return jsonify({
+            "message": "email, reset_token and new_password are required"
+        }), 400
+
+    try:
+        AUTH.update_password(reset_token, new_password)
+        return jsonify({"email": email, "message": "Password updated"}), 200
+    except ValueError:
+        abort(403, description="Invalid reset token")
+
+
 # Run the Flask application if this script is run directly
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
