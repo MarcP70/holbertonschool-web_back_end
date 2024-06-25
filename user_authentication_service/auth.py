@@ -95,3 +95,13 @@ class Auth:
             return reset_token
         except NoResultFound:
             raise ValueError(f"User with email {email} does not exist")
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """Update the password for the user identified by the reset_token"""
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            hashed_password = _hash_password(password)
+            self._db.update_user(
+                user.id, hashed_password=hashed_password, reset_token=None)
+        except NoResultFound:
+            raise ValueError("Invalid reset token")
