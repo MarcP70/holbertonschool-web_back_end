@@ -46,13 +46,25 @@ Requirements
 Setup
 -----
 
-You will need to install `bcrypt`
+    * Ensure venv package is installed
+    sudo apt-get install python3.11-venv
 
+    * Create virtual environment
+    python3 -m venv venv
+
+    * Activate virtual environment
+    source venv/bin/activate
+
+Install dependencies
+
+    * You will need to install `bcrypt`
     pip install bcrypt
 
-You will need to install `SQLAlchemy`
-
+    * You will need to install `SQLAlchemy`
     pip install SQLAlchemy
+
+    * You will need to install `requests`
+    pip install requests
 
 
 Tasks
@@ -882,3 +894,50 @@ If the token is valid, respond with a 200 HTTP code and the following JSON paylo
 *   File: `app.py`
 
 **0/5** pts
+
+### 20\. End-to-end integration test
+
+advanced
+
+Start your app. Open a new terminal window.
+
+Create a new module called `main.py`. Create one function for each of the following tasks. Use the `requests` module to query your web server for the corresponding end-point. Use `assert` to validate the response’s expected status code and payload (if any) for each task.
+
+*   `register_user(email: str, password: str) -> None`
+*   `log_in_wrong_password(email: str, password: str) -> None`
+*   `log_in(email: str, password: str) -> str`
+*   `profile_unlogged() -> None`
+*   `profile_logged(session_id: str) -> None`
+*   `log_out(session_id: str) -> None`
+*   `reset_password_token(email: str) -> str`
+*   `update_password(email: str, reset_token: str, new_password: str) -> None`
+
+Then copy the following code at the end of the `main` module:
+
+    EMAIL = "[email protected]"
+    PASSWD = "b4l0u"
+    NEW_PASSWD = "t4rt1fl3tt3"
+
+
+    if __name__ == "__main__":
+
+        register_user(EMAIL, PASSWD)
+        log_in_wrong_password(EMAIL, NEW_PASSWD)
+        profile_unlogged()
+        session_id = log_in(EMAIL, PASSWD)
+        profile_logged(session_id)
+        log_out(session_id)
+        reset_token = reset_password_token(EMAIL)
+        update_password(EMAIL, reset_token, NEW_PASSWD)
+        log_in(EMAIL, NEW_PASSWD)
+
+
+Run `python main.py`. If everything is correct, you should see no output.
+
+**Repo:**
+
+*   GitHub repository: `holbertonschool-web_back_end`
+*   Directory: `user_authentication_service`
+*   File: `main.py`
+
+**0/4** pts
