@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+"""Use unit tests to ensure it correctly accesses values.
 """
 import unittest
 from unittest.mock import patch
@@ -74,13 +74,13 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 return self.a_method()
 
-        # Create instance
-        test_instance = TestClass()
-
         # Patch of method a_method
-        with patch.object(test_instance,
+        with patch.object(TestClass,
                           'a_method',
                           return_value=42) as mock_method:
+            # Create instance
+            test_instance = TestClass()
+
             # Calls a_property twice
             result1 = test_instance.a_property
             result2 = test_instance.a_property
