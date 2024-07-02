@@ -46,6 +46,7 @@ Requirements
 
   * Install dependencies
   pip install Flask
+  pip install flask_babel
 
 
 Tasks
