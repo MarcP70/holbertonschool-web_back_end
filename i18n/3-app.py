@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 
-def get_locale():
+def get_locale() -> str:
     """Determine the best match with our supported languages."""
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
@@ -24,7 +24,7 @@ babel = Babel(app, locale_selector=get_locale)
 
 
 @app.route('/')
-def index():
+def index() -> str:
     """Return the homepage index when the application startup"""
     return render_template('3-index.html')
 
