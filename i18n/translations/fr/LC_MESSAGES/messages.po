@@ -32,7 +32,12 @@ msgstr "Vous êtes connecté en tant que %(username)s."
 
 #: templates/5-index.html:13
 msgid "not_logged_in"
-msgstr "Vous n'êtes pas connecté."
+msgstr "Vous n'êtes pas connecté.
+
+#: templates/index.html
+msgid "current_time_is %(current_time)s."
+msgstr "Nous sommes le %(current_time)s."
+
 
 #: venv/lib/python3.11/site-packages/click/_termui_impl.py:518
 msgid "{editor}: Editing failed"
