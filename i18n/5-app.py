@@ -29,9 +29,12 @@ def get_user() -> Dict:
     """Retrieve a user from the mock database based on the 'login_as'
         URL parameter.
     """
-    user_id = request.args.get('login_as', type=int)
-    return users.get(user_id, None)
+    user_id = request.args.get('login_as')
+    if user_id:
+        user_id=int(user_id)
+        return users.get(user_id)
 
+    return None
 
 @app.before_request
 def before_request() -> None:
@@ -46,9 +49,10 @@ def get_locale():
     # Check if 'locale' parameter is present in the query string
     locale_param = request.args.get('locale')
 
-    # If 'locale' is present and is a supported language, return it
-    if locale_param in app.config['LANGUAGES']:
-        return locale_param
+    if locale_param:
+        # If 'locale' is present and is a supported language, return it
+        if locale_param in app.config['LANGUAGES']:
+            return locale_param
 
     # Otherwise, return the best match based on the browser's accepted lang..
     return request.accept_languages.best_match(app.config['LANGUAGES'])
