@@ -35,6 +35,7 @@ def get_user() -> Optional[Dict]:
     except (TypeError, ValueError):
         return None
 
+
 @app.before_request
 def before_request() -> None:
     """Set the user on Flask's global object 'g' before each request."""
@@ -54,7 +55,7 @@ def get_locale() -> Optional[str]:
     except Exception:
         pass
 
-    # Otherwise, return the best match based on the browser's accepted languages
+    # Otherwise, return the best match based on the browser's accepted lang..
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
