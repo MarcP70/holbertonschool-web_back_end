@@ -3,7 +3,7 @@
 """
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
-from typing import Dict
+from typing import Dict, Optional
 
 
 class Config:
@@ -25,16 +25,15 @@ users = {
 }
 
 
-def get_user() -> Dict:
+def get_user() -> Optional[Dict]:
     """Retrieve a user from the mock database based on the 'login_as'
         URL parameter.
     """
-    user_id = request.args.get('login_as')
-    if user_id:
-        user_id=int(user_id)
+    try:
+        user_id = int(request.args.get('login_as', ''))
         return users.get(user_id)
-
-    return None
+    except (TypeError, ValueError):
+        return None
 
 @app.before_request
 def before_request() -> None:
@@ -42,19 +41,20 @@ def before_request() -> None:
     g.user = get_user()
 
 
-def get_locale():
+def get_locale() -> Optional[str]:
     """Determine the best match with our supported languages or use locale
         parameter from URL.
     """
     # Check if 'locale' parameter is present in the query string
-    locale_param = request.args.get('locale')
-
-    if locale_param:
+    try:
+        locale_param = request.args.get('locale')
         # If 'locale' is present and is a supported language, return it
         if locale_param in app.config['LANGUAGES']:
             return locale_param
+    except Exception:
+        pass
 
-    # Otherwise, return the best match based on the browser's accepted lang..
+    # Otherwise, return the best match based on the browser's accepted languages
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
