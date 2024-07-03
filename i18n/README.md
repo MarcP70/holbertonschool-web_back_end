@@ -45,8 +45,7 @@ Requirements
   source venv/bin/activate
 
   * Install dependencies
-  pip install Flask
-  pip install flask_babel
+  pip install --upgrade Flask Flask-Babel Jinja2
 
 
 Tasks
@@ -115,7 +114,7 @@ Create a `babel.cfg` file containing
 
     [python: **.py]
     [jinja2: **/templates/**.html]
-    extensions=jinja2.ext.autoescape,jinja2.ext.with_
+    # extensions=jinja2.ext.autoescape,jinja2.ext.with_
 
 
 Then initialize your translations with
@@ -284,3 +283,41 @@ Before returning a URL-provided or user time zone, you must validate that it is 
 *   File: `7-app.py, templates/7-index.html`
 
 **0/6** pts
+
+### 8\. Display the current time
+
+#advanced
+
+Based on the inferred time zone, display the current time on the home page in the default format. For example:
+
+`Jan 21, 2020, 5:55:39 AM` or `21 janv. 2020 à 05:56:28`
+
+Use the following translations
+
+msgid
+
+English
+
+French
+
+`current_time_is`
+
+`"The current time is %(current_time)s."`
+
+`"Nous sommes le %(current_time)s."`
+
+**Displaying the time in French looks like this:**
+
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2020/3/bba4805d6dca0a46a0f6.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20240703%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20240703T092604Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=90ac7644f4448a3bcdf9e74789137cc7554b8bae19d22d625c6d3ce3f089012e)
+
+**Displaying the time in English looks like this:**
+
+![](https://s3.eu-west-3.amazonaws.com/hbtn.intranet/uploads/medias/2020/3/54f3be802024dbcf06f4.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA4MYA5JM5DUTZGMZG%2F20240703%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20240703T092604Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=3cb3fb260c0540e3e6a4ac8e4b8eb63114dab924c1018ab1323ca673b1e07db6)
+
+**Repo:**
+
+*   GitHub repository: `holbertonschool-web_back_end`
+*   Directory: `i18n`
+*   File: `app.py, templates/index.html, translations/en/LC_MESSAGES/messages.po, translations/fr/LC_MESSAGES/messages.po`
+
+**0/4** pts
