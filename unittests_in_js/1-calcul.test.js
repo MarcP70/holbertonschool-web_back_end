@@ -2,6 +2,7 @@ const assert = require('assert');
 const calculateNumber = require('./1-calcul');
 
 describe('calculateNumber', function() {
+  describe('SUM', () => {
     it('should return the sum of rounded numbers', function() {
         assert.equal(calculateNumber('SUM', 3, 3), 6);
     });
@@ -20,7 +21,9 @@ describe('calculateNumber', function() {
     it('should return the sum of rounded numbers', function() {
       assert.equal(calculateNumber('SUM', -3.7, -3), -7);
     });
+  });
 
+  describe('SUBTRACT', () => {
     it('should return the subtract of rounded numbers', function() {
         assert.equal(calculateNumber('SUBTRACT', 3, 3), 0);
     });
@@ -39,7 +42,9 @@ describe('calculateNumber', function() {
     it('should return the subtract of rounded numbers', function() {
       assert.equal(calculateNumber('SUBTRACT', -3.7, -3), -1);
     });
+  });
 
+  describe('DIVIDE', () => {
     it('should return the division of rounded numbers', function() {
       assert.equal(calculateNumber('DIVIDE', 3, 3), 1);
     });
@@ -57,3 +62,5 @@ describe('calculateNumber', function() {
         assert.equal(calculateNumber('DIVIDE', 6, 0), 'Error');
     });
   });
+
+});
