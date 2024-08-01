@@ -14,4 +14,4 @@ describe('sendPaymentRequestToApi', function() {
 
 	  spy.restore();
 	});
-  });
+});
