@@ -109,6 +109,9 @@ def count_calls(method: Callable) -> Callable:
 
 
 class Cache:
+    """
+    Cache is an instance of the Redis client.
+    """
     def __init__(self):
         """Initializes the Cache instance and flushes the Redis database."""
         self._redis = redis.Redis()
