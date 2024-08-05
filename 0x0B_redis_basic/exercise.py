@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+Module for Redis basic
+"""
 import redis
 import uuid
 from typing import Union, Optional, Callable
@@ -13,15 +16,15 @@ def replay(method: Callable) -> None:
         method (Callable): The method whose call history is to be displayed.
     """
     # Create Redis connection (use the same configuration as in Cache class)
-    redis_instance = redis.Redis()
+    _redis = redis.Redis()
 
     # Generate keys for inputs and outputs
     inputs_key = f"{method.__qualname__}:inputs"
     outputs_key = f"{method.__qualname__}:outputs"
 
     # Retrieve input arguments and outputs from Redis
-    inputs = redis_instance.lrange(inputs_key, 0, -1)
-    outputs = redis_instance.lrange(outputs_key, 0, -1)
+    inputs = _redis.lrange(inputs_key, 0, -1)
+    outputs = _redis.lrange(outputs_key, 0, -1)
 
     lists_io = list(zip(inputs, outputs))
     # Print the results
