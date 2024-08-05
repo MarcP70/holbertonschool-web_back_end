@@ -23,13 +23,14 @@ def replay(method: Callable) -> None:
     inputs = redis_instance.lrange(inputs_key, 0, -1)
     outputs = redis_instance.lrange(outputs_key, 0, -1)
 
+    lists_io = list(zip(inputs, outputs))
     # Print the results
-    print(f"{method.__qualname__} was called {len(inputs)} times:")
+    print(f"{method.__qualname__} was called {len(lists_io)} times:")
 
-    for input_args, output in zip(inputs, outputs):
+    for list_io in lists_io:
         # Decode bytes to string and format
-        input_str = input_args.decode("utf-8")
-        output_str = output.decode("utf-8")
+        input_str = list_io[0].decode("utf-8")
+        output_str = list_io[1].decode("utf-8")
         print(f"{method.__qualname__}(*{input_str}) -> {output_str}")
 
 
