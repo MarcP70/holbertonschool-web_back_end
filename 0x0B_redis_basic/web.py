@@ -9,6 +9,7 @@ from typing import Callable
 # Redis connection
 redis_client = redis.Redis()
 
+
 def track_access(url: str) -> None:
     """
     Increment the count of how many times the URL has been accessed.
@@ -17,6 +18,7 @@ def track_access(url: str) -> None:
         url (str): The URL to track.
     """
     redis_client.incr(f"count:{url}")
+
 
 def cache_result(func: Callable) -> Callable:
     """
@@ -45,6 +47,7 @@ def cache_result(func: Callable) -> Callable:
         return result
 
     return wrapper
+
 
 @cache_result
 def get_page(url: str) -> str:
